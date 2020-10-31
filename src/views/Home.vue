@@ -1,18 +1,84 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="home">
+    <b-carousel
+      id="carousel"
+      v-model="slide"
+      :interval="0"
+      controls
+      indicators
+      background="#ababab"
+      style="text-shadow: 1px 1px 2px #333;"
+      @sliding-start="onSlideStart"
+      @sliding-end="onSlideEnd"
+    >
+      <b-carousel-slide v-for="(slide, index) in slides" :key="index">
+        <h1 v-if='slide.title'>{{ slide.title }}</h1>
+        <p v-if='slide.text'>{{ slide.text }}</p>
+        <a v-if='slide.link' :href='slide.link'>{{ slide.linkText ? slide.linkText : slide.link }}</a>
+        <template v-slot:img>
+          <img
+          class="d-block c-img"
+          :src="slide.img"
+          alt="image slot">
+        </template>
+      </b-carousel-slide>
+    </b-carousel>
+    <div id='main-content'>
+      <NavBar></NavBar>
+      <h1>This is a place to house links to tools that may be useful for EngSci students.</h1>
+      <p>Majorly under construction. Mostly just testing this.</p>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import bridge from '@/assets/carouselImgs/bridge.jpg'
+import bird from '@/assets/carouselImgs/bird.jpg'
+import field from '@/assets/carouselImgs/field.jpg'
+import NavBar from '@/components/navbar'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    NavBar
+  },
+  data: () => ({
+    slide: 0,
+    sliding: null,
+    slides: [
+      { img: bridge, title: 'Bridge', text: 'A bridge' },
+      { img: bird, title: 'Bird', text: 'Birds are cool' },
+      { img: field, title: 'Field', text: 'I like fields' }
+    ]
+  }),
+  methods: {
+    onSlideStart () {
+      this.sliding = true
+    },
+    onSlideEnd () {
+      this.sliding = false
+    }
   }
 }
 </script>
+
+<style lang="less" scoped>
+#home {
+  #carousel {
+    height: 100vh;
+
+    .c-img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
+  }
+
+  #main-content {
+    width: 100%;
+    min-height: 100vh;
+  }
+}
+</style>

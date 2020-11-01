@@ -24,7 +24,7 @@
       </b-carousel-slide>
     </b-carousel>
     <div id='main-content'>
-      <NavBar></NavBar>
+      <NavBar :sticky='true'></NavBar>
       <div id='content'>
         <div id='news'>
           <!-- <h3>EngSci News</h3>

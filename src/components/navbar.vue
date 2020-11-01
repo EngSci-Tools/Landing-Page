@@ -1,5 +1,5 @@
 <template>
-  <b-navbar class='shadow' type="dark" id='navbar'>
+  <b-navbar class='shadow' :sticky='sticky || false' :fixed='fixed || ""' type="dark" id='navbar'>
     <b-navbar-brand to='/'>EngSci Tools</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -21,7 +21,8 @@
 
 <script>
 export default {
-  name: 'NavBar'
+  name: 'NavBar',
+  props: ['sticky', 'fixed']
 }
 </script>
 

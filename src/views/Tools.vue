@@ -4,7 +4,10 @@
       <b-media>
         <h4>Year {{ year }}</h4>
         <p>{{ yearInfo.info }}</p>
-        <a v-for='(tool, index) in yearInfo.tools' :key='index' :href='tool.link' target='_blank'>Tool: {{ tool.name }}</a>
+        <div v-if='yearInfo.tools' class='tools'>
+          <h6>Tools:</h6>
+          <a v-for='(tool, index) in yearInfo.tools' :key='index' :href='tool.link' target='_blank'>{{ tool.name }}</a>
+        </div>
         <CourseCard v-for='course in yearInfo.courses' :key='course.name'
           :code='course.name' :info='course.info' :img='getImage(year, course.name)' :tools='course.tools'
         ></CourseCard>
@@ -63,6 +66,12 @@ export default {
   width: 80vw;
   .card {
     background: $background-secondary;
+  }
+
+  .tools {
+    margin-left: 10px;
+    line-height: 1px;
+    margin-bottom: 20px;
   }
 }
 </style>

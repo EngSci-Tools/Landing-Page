@@ -3,15 +3,8 @@
     "info": "Just keep your head down and get through it. Good luck.",
     "tools": [{ "name": "Lecture Downloader", "link": "http://lectures.engscitools.ca" }],
     "courses": [
-      { "name": "CIV102", "info": "Civil Engineering", "tools": [{ "name": "HSS Calculator", "link": "http://hss.engscitools.ca" }] },
-      { "name": "ESC194", "info": "Calculus" }
-    ]
-  },
-  "2": {
-    "info": "Actually, that head of yours. Yea still keep it down. One more year, I promise.",
-    "tools": [{ "name": "Lecture Downloader", "link": "http://lectures.engscitools.ca" }],
-    "courses": [
-      { "name": "Other Course", "info": "Some other course" }
+      { "name": "CIV102", "info": "Civil Engineering is basically physics. The problems sets are long enough to make you want to end yourself and count for virtually nothing. Have fun.", "tools": [{ "name": "HSS Calculator", "link": "http://hss.engscitools.ca" }] },
+      { "name": "ESC194", "info": "Single dimensional calculus. My advice is to have done this in high school. It really makes a world of difference." }
     ]
   }
 }

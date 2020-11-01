@@ -4,7 +4,7 @@
       name="fade"
       mode="out-in"
     >
-      <NavBar v-if='!currPageNav'></NavBar>
+      <NavBar v-if='!currPageNav' :sticky='true'></NavBar>
     </transition>
     <div id='app'>
       <div id="left" class="side-button" v-if='currentPageGroupIndex > -1'><router-link v-if='previousPage' :to="previousPage"><b-icon-chevron-compact-left></b-icon-chevron-compact-left></router-link></div>
@@ -12,6 +12,7 @@
         <transition
           name="fade"
           mode="out-in"
+          @after-leave="$root.$emit('triggerScroll')"
         >
           <router-view/>
         </transition>

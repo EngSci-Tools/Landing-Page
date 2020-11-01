@@ -90,7 +90,7 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
   background: $background-primary;
   min-height: 100vh;
   color: #ecf0f1;
@@ -102,9 +102,6 @@ body {
     #routes {
       &.navigator > div {
         width: 80vw;
-      }
-      > div {
-        width: 100vw;
       }
     }
   }

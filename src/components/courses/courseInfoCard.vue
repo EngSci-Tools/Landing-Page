@@ -1,23 +1,20 @@
 <template>
-  <b-card no-body class="overflow-hidden">
-    <b-row no-gutters>
-    <b-col md="4">
-      <b-card-img thumbnail v-if='img' :src='img' alt="Image"></b-card-img>
-    </b-col>
-    <b-col md="8" id='course-info'>
-      <b-card-body :title="code">
-        <b-card-text>
-          {{ info }}
-        </b-card-text>
-        <div v-if='tools'>
-          <b-card-text v-for='(tool, index) in tools' :key='index'>
-            <a :href='tool.link' target='_blank'>Tool: {{ tool.name }}</a>
-          </b-card-text>
-        </div>
-      </b-card-body>
-    </b-col>
-    </b-row>
-  </b-card>
+  <b-media>
+    <b-container>
+      <b-row>
+        <b-col sm='5'>
+          <b-img :src='img' class='course-img'></b-img>
+        </b-col>
+        <b-col sm='7'>
+          <h5>{{ code }}</h5>
+          <p>{{ info }}</p>
+          <b-media>
+            <a v-for='(tool, index) in tools' :key='index' :href='tool.link' target='_blank'>Tool: {{ tool.name }}</a>
+          </b-media>
+        </b-col>
+      </b-row>
+    </b-container>
+  </b-media>
 </template>
 
 <script>
@@ -33,5 +30,8 @@ export default {
 <style lang="less" scoped>
 #course-info {
   text-align: left;
+}
+.course-img {
+  width: 100%;
 }
 </style>

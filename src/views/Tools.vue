@@ -1,39 +1,30 @@
 <template>
   <div id='classes'>
-    <div id='years' role='tablist'>
-      <b-card no-body class="mb-1" v-for='(courses, year) in years' :key='year'>
-        <b-card-header header-tag="header" class="p-1" role="tab">
-          <b-button block @click="setYear(year)">Year {{ year }}</b-button>
-        </b-card-header>
-        <b-collapse :id="`accordion-${year}`" v-model='yearVisibility[year]'  accordion="my-accordion" role="tabpanel">
-          <b-card-body>
-            <CourseCard v-for='course in courses' :key='course.name' :code='course.name' :info='course.info' :img='course.img' :tools='course.tools'></CourseCard>
-          </b-card-body>
-        </b-collapse>
-      </b-card>
-    </div>
+    <b-card v-for='(yearInfo, year) in years' :key='year'>
+      <b-media>
+        <h4>Year {{ year }}</h4>
+        <p>{{ yearInfo.info }}</p>
+        <a v-for='(tool, index) in yearInfo.tools' :key='index' :href='tool.link' target='_blank'>Tool: {{ tool.name }}</a>
+        <CourseCard v-for='course in yearInfo.courses' :key='course.name'
+          :code='course.name' :info='course.info' :img='getImage(year, course.name)' :tools='course.tools'
+        ></CourseCard>
+      </b-media>
+    </b-card>
   </div>
 </template>
 
 <script>
 import CourseCard from '@/components/courses/courseInfoCard'
+import years from '@/assets/tools.json'
 
 export default {
-  name: 'Classes',
+  name: 'Tools',
   components: {
     CourseCard
   },
   data () {
     return {
-      years: {
-        1: [
-          { name: 'CIV102', info: 'Civil Engineering', img: this.getImage(1, 'CIV102'), tools: [{ name: 'HSS Calculator', link: 'http://hss.engscitools.ca' }] },
-          { name: 'ESC194', info: 'Calculus', img: this.getImage(1, 'ESC194') }
-        ],
-        2: [
-          { name: 'Other Course', info: 'Some other course' }
-        ]
-      }
+      years
     }
   },
   computed: {
@@ -57,7 +48,11 @@ export default {
       }
     },
     getImage (year, courseName) {
-      return require(`../components/courses/year${year}/${courseName}.jpg`)
+      try {
+        return require(`../components/courses/year${year}/${courseName}.jpg`)
+      } catch (err) {
+        return undefined
+      }
     }
   }
 }
@@ -65,6 +60,7 @@ export default {
 
 <style lang="scss" scoped>
 #classes {
+  width: 80vw;
   .card {
     background: $background-secondary;
   }

@@ -25,8 +25,15 @@
     </b-carousel>
     <div id='main-content'>
       <NavBar></NavBar>
-      <h1>This is a place to house links to tools that may be useful for EngSci students.</h1>
-      <p>Majorly under construction. Mostly just testing this.</p>
+      <div id='content'>
+        <div id='news'>
+          <!-- <h3>EngSci News</h3>
+          <News></News> -->
+          <b-jumbotron header='EngSci News' lead='Updates every hour'>
+            <News></News>
+          </b-jumbotron>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -36,12 +43,15 @@
 import bridge from '@/assets/carouselImgs/bridge.jpg'
 import bird from '@/assets/carouselImgs/bird.jpg'
 import field from '@/assets/carouselImgs/field.jpg'
+
 import NavBar from '@/components/navbar'
+import News from '@/components/home/News'
 
 export default {
   name: 'Home',
   components: {
-    NavBar
+    NavBar,
+    News
   },
   data: () => ({
     slide: 0,
@@ -63,7 +73,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 #home {
   #carousel {
     height: 100vh;
@@ -79,6 +89,17 @@ export default {
   #main-content {
     width: 100%;
     min-height: 100vh;
+
+    #content {
+      background: $background-secondary;
+      margin: 0 10vw;
+      display: flex;
+      flex-direction: row;
+
+      #news {
+        width: 100%;
+      }
+    }
   }
 }
 </style>

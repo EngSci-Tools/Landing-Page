@@ -4,6 +4,12 @@ $background-secondary: #2c3e50;
 
 $info: #326394;
 
-a {
-    color: red;
+#app {
+    .card, .jumbotron {
+        background-color: $background-secondary;
+    }
+
+    a {
+        color: inherit;
+    }
 }

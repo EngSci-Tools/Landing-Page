@@ -3,18 +3,18 @@
     <b-carousel
       id="carousel"
       v-model="slide"
-      :interval="0"
+      :interval="3000"
       controls
       indicators
       background="#ababab"
-      style="text-shadow: 1px 1px 2px #333;"
+      style="text-shadow: 1px 1px 2px #333; color: #000"
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
       <b-carousel-slide v-for="(slide, index) in slides" :key="index">
         <h1 v-if='slide.title'>{{ slide.title }}</h1>
         <p v-if='slide.text'>{{ slide.text }}</p>
-        <a v-if='slide.link' :href='slide.link'>{{ slide.linkText ? slide.linkText : slide.link }}</a>
+        <a v-if='slide.link' :href='slide.link' target='_blank'>{{ slide.linkText ? slide.linkText : slide.link }}</a>
         <template v-slot:img>
           <img
           class="d-block c-img"
@@ -40,9 +40,8 @@
 
 <script>
 // @ is an alias to /src
-import bridge from '@/assets/carouselImgs/bridge.jpg'
-import bird from '@/assets/carouselImgs/bird.jpg'
-import field from '@/assets/carouselImgs/field.jpg'
+import downloaderImg from '@/assets/carouselImgs/downloader.png'
+import hssImg from '@/assets/carouselImgs/HSSSolver.png'
 
 import NavBar from '@/components/navbar'
 import News from '@/components/home/News'
@@ -57,9 +56,8 @@ export default {
     slide: 0,
     sliding: null,
     slides: [
-      { img: bridge, title: 'Bridge', text: 'A bridge' },
-      { img: bird, title: 'Bird', text: 'Birds are cool' },
-      { img: field, title: 'Field', text: 'I like fields' }
+      { img: downloaderImg, title: 'Lecture Downloader', link: 'http://lectures.engscitools.ca' },
+      { img: hssImg, title: 'Hollow Structural Section Solver', link: 'http://hss.engscitools.ca' }
     ]
   }),
   methods: {
@@ -83,6 +81,10 @@ export default {
       height: 100vh;
       object-fit: cover;
       object-position: 50% 50%;
+    }
+
+    .carousel-caption {
+      color: #000;
     }
   }
 

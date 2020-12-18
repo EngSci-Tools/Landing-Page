@@ -1,26 +1,28 @@
 <template>
-  <div id='class'>
-    <p>Year: {{ year }}</p>
-    <p>Course: {{ courseCode }}</p>
+  <div id='course'>
+    <p>Course: {{ course.code }} - {{ course.name }}</p>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Course',
   computed: {
-    courseCode () {
-      return this.$route.params.courseCode
+    ...mapGetters('courses', ['courseDetails']),
+    courseId () {
+      return this.$route.params.courseId
     },
-    year () {
-      return this.$route.params.year
+    course () {
+      return this.courseDetails(this.courseId)
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-#class {
+#course {
 
 }
 </style>

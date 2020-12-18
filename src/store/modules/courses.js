@@ -27,6 +27,32 @@ const state = () => ({
   }
 })
 
+function processTabs (rawTabs, filter, numAnnouncements, numAssignments) {
+  const tabs = {}
+
+  let count = 0
+  for (const tab of rawTabs) {
+    const { id, label, full_url: url } = tab
+    if (filter && filter.indexOf(id) < 0) {
+      continue
+    }
+
+    let badge = null
+    if (id === 'announcements') {
+      badge = numAnnouncements || null
+    }
+    if (id === 'grades') {
+      badge = numAssignments || null
+    }
+    const position = filter ? filter.indexOf(id) : count
+    tabs[id] = {
+      label, position, url, badge
+    }
+    count++
+  }
+  return tabs
+}
+
 const getters = {
   basicCourseInfo: (state) => {
     const courses = {}
@@ -39,28 +65,16 @@ const getters = {
       const { shortCode, shortName, tools, skuleOverride } = state.courseInfo[longCode]
       const { id, totalStudents, announcements, assignments, teachers, tabs: rawTabs, calendarLink } = canvasInfo
 
-      const numAnnouncements = announcements.length
-      const numAssignments = assignments.length
+      const dateRange = 3
+      const filterDate = new Date()
+      filterDate.setDate(filterDate.getDate() - dateRange)
+      const announcementsAfterFilter = announcements.filter(a => new Date(a.created) > filterDate)
+      const assignmentsAfterFilter = assignments.filter(a => new Date(a.gradedDate) > filterDate)
+      const numAnnouncements = announcementsAfterFilter.length
+      const numAssignments = assignmentsAfterFilter.length
 
-      const tabs = {}
       const validTabs = ['home', 'modules', 'announcements', 'grades']
-      for (const tab of rawTabs) {
-        const { id, label, full_url: url } = tab
-        if (validTabs.indexOf(id) < 0) {
-          continue
-        }
-
-        let badge = null
-        if (id === 'announcements') {
-          badge = numAnnouncements
-        }
-        if (id === 'grades') {
-          badge = numAssignments
-        }
-        tabs[id] = {
-          label, position: validTabs.indexOf(id), url, badge
-        }
-      }
+      const tabs = processTabs(rawTabs, validTabs, numAnnouncements, numAssignments)
 
       const skuleCoursesLink = `http://courses.skule.ca/course/${skuleOverride || shortCode}H1`
 
@@ -79,6 +93,41 @@ const getters = {
       }
     }
     return courses
+  },
+  courseDetails: (state) => (courseId) => {
+    console.log('Searching for:', courseId)
+    const canvasInfo = state.courses.find(course => course.id === parseInt(courseId))
+    if (canvasInfo == null) {
+      return null
+    }
+
+    const longCode = canvasInfo.code
+    const { shortCode, shortName, tools, skuleOverride } = state.courseInfo[longCode]
+    const { id, totalStudents, announcements, assignments, teachers, tabs: rawTabs, calendarLink } = canvasInfo
+
+    const numAnnouncements = announcements.length
+    const numAssignments = assignments.length
+
+    // const validTabs = ['home', 'modules', 'announcements', 'grades']
+    const tabs = processTabs(rawTabs, undefined, numAnnouncements, numAssignments)
+
+    const skuleCoursesLink = `http://courses.skule.ca/course/${skuleOverride || shortCode}H1`
+
+    return {
+      id,
+      code: shortCode,
+      name: shortName,
+      tools,
+      skuleCoursesLink,
+      totalStudents,
+      teachers,
+      numAnnouncements,
+      announcements,
+      numAssignments,
+      assignments,
+      tabs,
+      calendarLink
+    }
   }
 }
 

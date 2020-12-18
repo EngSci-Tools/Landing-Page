@@ -9,7 +9,7 @@
             <b-nav-item :href='course.calendarLink' target='_blank'><BIconCalendarPlus/></b-nav-item>
           </b-nav>
           <b-card-body class='pb-0'>
-            <b-card-title>{{ course.name }}</b-card-title>
+            <b-card-title><b-link :to='`/courses/${course.id}`'>{{ course.name }}</b-link></b-card-title>
             <b-card-sub-title>{{ course.code }}</b-card-sub-title>
             <b-card-text class='mt-3 mb-0'>Total Students: <b-badge>{{ course.totalStudents }}</b-badge></b-card-text>
             <b-card-text class='mt-0 mb-1'><b>Teaching Team:</b></b-card-text>

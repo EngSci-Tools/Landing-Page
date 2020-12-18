@@ -7,6 +7,7 @@ import http from 'http';
 
 import NewsScraper from './serverResources/newsScraper.mjs'
 import Courses from './serverResources/courses.mjs'
+// TODO: Make https://skule.ca/digest/api.php/:cursor into a socket subject
 
 class SocketHandler {
     constructor(socket) {

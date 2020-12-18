@@ -1,5 +1,5 @@
 <template>
-  <div id='courses'>
+  <div id='courses' v-if='basicCourseInfo'>
     <b-row v-for='(row, index) in rows' :key='index'>
       <b-col v-for='course in row' :key='course.id'>
         <b-card no-body :sub-title='course.code' :title='course.name' class='course-card shadow-sm mb-3 mt-2'>

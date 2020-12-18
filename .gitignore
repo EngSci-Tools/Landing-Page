@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-serverResources/config.mjs
+serverResources/subjects/config.mjs
 
 
 # local env files

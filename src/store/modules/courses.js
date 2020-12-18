@@ -56,6 +56,9 @@ function processTabs (rawTabs, filter, numAnnouncements, numAssignments) {
 const getters = {
   basicCourseInfo: (state) => {
     const courses = {}
+    if (state.courses == null) {
+      return courses
+    }
     for (const longCode of Object.keys(state.courseInfo)) {
       const canvasInfo = state.courses.find(course => course.code === longCode)
       if (canvasInfo == null) {
@@ -96,6 +99,9 @@ const getters = {
   },
   courseDetails: (state) => (courseId) => {
     console.log('Searching for:', courseId)
+    if (state.courses == null) {
+      return null
+    }
     const canvasInfo = state.courses.find(course => course.id === parseInt(courseId))
     if (canvasInfo == null) {
       return null

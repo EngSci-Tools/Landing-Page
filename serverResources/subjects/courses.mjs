@@ -1,20 +1,21 @@
+import Subject from '../subject.mjs'
+
 import Canvas from 'canvas-student-wrapper'
 import config from './config.mjs'
-
-import rxjs from 'rxjs'
-const { BehaviorSubject, interval } = rxjs;
-
-export default class Courses {
-    constructor () {
-        this.onUpdate = new BehaviorSubject()
-        interval(1000*60*10).subscribe(() => this.update()) // Refresh the courses every 30 minutes
-
-        const yearStartDate = new Date('2020-07-01')
+export default class Courses extends Subject {
+    initialize (params) {
+        const { year, semester } = params
+        const month = semester === 0 ? '07' : '12'
+        const yearStartDate = new Date(`${year}-${month}-01`)
         this.canvas = new Canvas(config.accessToken, yearStartDate)
-        this.update()
     }
 
-    async update() {
+    async update (params) {
+        const { year, semester } = params
+        const month = semester === 0 ? '07' : '12'
+        const yearStartDate = new Date(`${year}-${month}-01`)
+        console.log("Updating courses after:", yearStartDate)
+
         await this.canvas.update()
         const activeCourses = this.canvas.getCourses({ active: true })
         const courses = []
@@ -39,7 +40,6 @@ export default class Courses {
                 announcements, assignments
             })
         }
-        console.log("Updated courses")
-        this.onUpdate.next(courses)
+        return courses
     }
 }

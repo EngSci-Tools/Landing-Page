@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
 import courses from './modules/courses'
 import news from './modules/news'
+import digest from './modules/digest'
 
 Vue.use(Vuex)
 
@@ -10,7 +12,8 @@ const debug = process.env.NODE_ENV !== 'production'
 export default new Vuex.Store({
   modules: {
     courses,
-    news
+    news,
+    digest
   },
   state: {
     isConnected: false
@@ -32,6 +35,9 @@ export default new Vuex.Store({
     },
     SOCKET_news ({ commit }, news) {
       commit('news/setNews', news)
+    },
+    SOCKET_digest ({ commit }, digest) {
+      commit('digest/setDigest', digest)
     }
   },
   strict: debug

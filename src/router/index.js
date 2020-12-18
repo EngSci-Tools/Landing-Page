@@ -19,14 +19,14 @@ const routes = [
     component: () => import('../views/About.vue')
   },
   {
-    path: '/tools/:year?/',
-    name: 'Tools',
-    component: () => import('../views/Tools.vue')
+    path: '/courses/:courseCode',
+    name: 'Course',
+    component: () => import('../views/Course.vue')
   },
   {
-    path: '/tools/:year/:courseCode',
-    name: 'Class',
-    component: () => import('../views/Class.vue')
+    path: '/courses',
+    name: 'Courses',
+    component: () => import('../views/Courses.vue')
   }
 ]
 

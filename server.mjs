@@ -6,6 +6,7 @@ import socketIO from 'socket.io';
 import http from 'http';
 
 import NewsScraper from './serverResources/newsScraper.mjs'
+import Courses from './serverResources/courses.mjs'
 
 class SocketHandler {
     constructor(socket) {
@@ -13,8 +14,6 @@ class SocketHandler {
 
         this.subjects = {};
     }
-
-
 
     addSubject(eventName, subject) {
         this.socket.on(eventName, () => {
@@ -34,6 +33,7 @@ async function main() {
     app.use(express.static("./dist"));
 
     const newsScraper = new NewsScraper()
+    const courses = new Courses()
 
     const socketHandlers = [];
     io.on('connect', socket => {
@@ -41,6 +41,7 @@ async function main() {
         const handler = new SocketHandler(socket)
         socketHandlers.push(handler);
         handler.addSubject('news', newsScraper.onNews);
+        handler.addSubject('courses', courses.onUpdate);
     })
 
     server.listen(PORT, () => {

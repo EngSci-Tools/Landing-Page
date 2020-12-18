@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'Class',
+  name: 'Course',
   computed: {
     courseCode () {
       return this.$route.params.courseCode

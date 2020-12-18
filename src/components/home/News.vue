@@ -1,5 +1,5 @@
 <template>
-  <div class='news'>
+  <div class='news' v-if='news'>
     <b-card v-for='article in news' :key='article.title' no-body>
       <b-card-body>
         <h4>{{ article.title }}</h4>
@@ -15,18 +15,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'News',
-  data: () => ({
-    news: null
-  }),
-  created () {
-    this.$socket.emit('news')
-  },
-  sockets: {
-    news (news) {
-      this.news = news
-    }
+  computed: {
+    ...mapGetters('news', ['news'])
   }
 }
 </script>

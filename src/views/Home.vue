@@ -3,7 +3,7 @@
     <b-carousel
       id="carousel"
       v-model="slide"
-      :interval="3000"
+      :interval="0"
       controls
       indicators
       background="#ababab"
@@ -40,6 +40,7 @@
 
 <script>
 // @ is an alias to /src
+import trussImg from '@/assets/carouselImgs/TrussSolver.png'
 import downloaderImg from '@/assets/carouselImgs/downloader.png'
 import hssImg from '@/assets/carouselImgs/HSSSolver.png'
 
@@ -56,6 +57,7 @@ export default {
     slide: 0,
     sliding: null,
     slides: [
+      { img: trussImg, title: 'Truss Solver', link: 'http://truss.engscitools.ca' },
       { img: downloaderImg, title: 'Lecture Downloader', link: 'http://lectures.engscitools.ca' },
       { img: hssImg, title: 'Hollow Structural Section Solver', link: 'http://hss.engscitools.ca' }
     ]
